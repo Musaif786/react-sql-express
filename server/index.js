@@ -9,9 +9,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //sql connection
-const mysql = require("mysql");
-
-
+const mysql = require("mysql");  
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -23,12 +21,11 @@ app.post("/signup", (req,res)=>{
     //this both are coming from frontend
     const movie = req.body.movie;
     const review = req.body.review;
+    const rating = req.body.rating;
 
-    const sqlInsert = "INSERT INTO movietwo (moviename,moviereview) values(?,?);"
-    db.query(sqlInsert,[movie,review], (err,result) => {
-       console.log(err)
-        res.send("data stored into done database   "+ result);
-        
+    const sqlInsert = "INSERT INTO movie_reviews (moviename,moviereview,rating) values(?,?,?);"
+    db.query(sqlInsert,[movie,review,rating], (err,result) => {
+       console.log(err)  
     });
 })
 
